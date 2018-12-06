@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="0.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="2.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 1 - Installation</h1>
+<hr />
+<p><em>Chapter 2 and 3 can be done without any installation. You can use <a target="_blank" href="https://repl.it/languages/lua">repl.it</a> as an alternative if you don't feel like installing software right away. But be sure to read the <strong>A few more things</strong> paragraph at the bottom.</em></p>
+<hr />
+<h2>LÖVE</h2>
+<p>Go to <a target="_blank" href="https://www.love2d.org/">love2d.org</a>.</p>
+<p>You should download either the 32-bit or the 64-bit <strong>installer</strong>. This depends on your system type. If you don't know your system type, just go with 32-bit.</p>
+<p><img src="../../images/book/1/download_love.png" alt="" target="_blank" /></p>
+<p>Open the installer. Click on <em>Next</em>. Click on <em>I agree</em>. Now you can decide where you install LÖVE. It doesn't matter where you install LÖVE, but remember the folder. This folder will be referred to as the <em>Installation Folder</em>.</p>
+<p>My installation folder will be <code>C:/Program Files/LOVE</code>.</p>
+<p>Click on <em>Next</em>. Click on <em>Install</em>.</p>
+<p>When LÖVE is done installing, click on <em>Finish</em>.</p>
+<hr />
+<h2>ZeroBrane Studio</h2>
+<p>Now we need to install a text-editor. We're going to use ZeroBrane Studio in this tutorial.</p>
+<p>Go to <a target="_blank" href="https://studio.zerobrane.com/">studio.zerobrane.com</a>, and click on &quot;Download&quot;.</p>
+<p><img src="../../images/book/1/download_brane.png" alt="" target="_blank" /></p>
+<p>Here you get the option to donate to ZeroBrane Studio. If you don't want to donate click on <a target="_blank" href="https://studio.zerobrane.com/download?not-this-time">&quot;Take me to the download page this time&quot;</a>,</p>
+<p>Open the installer, and install ZeroBrane Studio in your preferred folder.</p>
+<p><img src="../../images/book/1/install_brane.png" alt="" target="_blank" /></p>
+<p>When ZeroBrane Studio is done installing, open it.</p>
+<p>Now we need to make a Project Folder. Open you file explorer and create a folder wherever you like, and name it whatever you want. In ZeroBrane Studio, click on the &quot;Select Project Folder&quot; icon, and select the folder you just created.</p>
+<p><img src="../../images/book/1/project_brane.png" alt="" target="_blank" /></p>
+<p>In ZeroBrane Studio, create a new file. <code>File</code> -&gt; <code>New</code>, or use the shortcut <code>Ctrl + N</code>. </p>
+<p>Inside this file, write the following code:</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.print("Hello World!", 100, 100)
+end</code></pre>
+<p>Go to <code>File</code> -&gt; <code>Save</code>, or use the shortcut <code>Ctrl + S</code>. Save the file as <code>main.lua</code>.</p>
+<p>Go to <code>Project</code> -&gt; <code>Lua Interpreter</code> and select <code>LÖVE</code>.</p>
+<p>Now when you press the F6, a window should open with the text &quot;Hello World!&quot;. Congratulations, you're ready to start learning LÖVE. Whenever I tell you to <em>run the game</em> or <em>run the code</em> I'm telling you to press F6 to execute LÖVE.</p>
+<p>In case nothing happens and the following text shows up: <em>Can't find love2d executable in any of the following folders</em>, you installed LÖVE somewhere where ZeroBrane Studio can't find it. Go to <code>Edit</code> -&gt; <code>Preferrences</code> -&gt; <code>Settings: User</code>. Put in the following:</p>
+<pre><code class="language-lua">path.love2d = 'C:/path/to/love.exe'</code></pre>
+<p>And replace <code>'C:/path/to/love.exe'</code> with the path to where you installed LÖVE. Make sure to use frontslashes (/).</p>
+<hr />
+<h2>A few more things</h2>
+<p>Did you copy/paste the above code? I encourage you to type the code I show you yourself. That might seem like a lot of extra work, but by doing so it will help you memorize everything a lot better.</p>
+<p>The one thing you don't need to type yourself are comments.</p>
+<pre><code class="language-lua">--This line is a comment. This is not code.
+--The next line is code:
+
+print(123)
+
+--Output: 123</code></pre>
+<p>Every line starting with 2 minus-signs (--) is a <em>comment</em>. The computer ignores it, meaning we can type anything we want without getting an error. I can use comments to explain certain code better. When typing over the code you don't have to copy the comments.</p>
+<p>With <code>print</code> we can send information to our <em>Output console</em>. This is the box at the bottom of our editor. When you close the game, it should say the text &quot;123&quot;. I add the text <code>--Output:</code> to show you the expected output.</p>
+<p>And with that, let's begin to learn how to program games!</p></div><div class="nav"><ul><li><a href="0.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="2.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_1 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="8.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="10.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 9 - Multiple files and scope</h1>
+<h2>Multiple files</h2>
+<p>With multiple files, our code will look more organized, and easier to navigate. Create a new file called <code>example.lua</code>. Make sure it's in the same directory as <code>main.lua</code>.</p>
+<p>Inside this file, create a variable. I will put <code>--! file:</code> at the top of the codeblock to make clear in what file you have to put the code.</p>
+<pre><code class="language-lua">--! file: example.lua
+test = 20</code></pre>
+<p>Now in <code>main.lua</code>, put <code>print(test)</code>. When you run the game, you'll see that <code>test</code> equals <code>nil</code>. This is because we have to load the file first. We do this with <code>require</code>, by passing the filename as string as first argument.</p>
+<pre><code class="language-lua">--! file: main.lua
+--Leave out the .lua
+require("example")
+print(test)</code></pre>
+<p>We don't add the <code>".lua"</code> in the filename, because Lua does this for us.</p>
+<p>You can also put the file in a subdirectory, but in that case make sure to include the whole path.</p>
+<pre><code class="language-lua">--Use . instead of /
+require("path.to.example")</code></pre>
+<p>Now when you print <code>test</code>, after we loaded <code>example.lua</code>, you should see it says 20.</p>
+<p><code>test</code> in this case is what we call a <em>global variable</em>. It's a variable that we can use everywhere in our project. The opposite of a global variable, is a <em>local variable</em>. You create a local variable by writing <code>local</code> in front of the variable name.</p>
+<pre><code class="language-lua">--! file: example.lua
+local test = 20</code></pre>
+<p>Run the game to see test is once again <code>nil</code>. This is because of its <em>scope</em>.</p>
+<hr />
+<h2>Scope</h2>
+<p>Local variables are limited to their <em>scope</em>. In the case of <code>test</code>, the scope is the file <code>example.lua</code>. This means that <code>test</code> can be used everywhere inside that file, but not in other files.</p>
+<p>If we were to create a local variable inside a <em>block</em>, like a function, if-statement or for-loop, then that would be the variable's scope.</p>
+<pre><code class="language-lua">--! file: example.lua
+if true then
+    local test = 20
+end
+
+print(test)
+--Output: nil</code></pre>
+<p><code>test</code> is <code>nil</code>, because we print it outside of its scope.</p>
+<p>Parameters of functions are like local variables. Only existing inside the function.</p>
+<p>To really understand how scope works, take a look at the following code:</p>
+<pre><code class="language-lua">--! file: main.lua
+test = 10
+require("example")
+print(test)
+--Output: 10</code></pre>
+<pre><code class="language-lua">--! file: example.lua
+local test = 20
+
+function some_function(test)
+    if true then
+        local test = 40
+        print(test)
+        --Output: 40
+    end
+    print(test)
+    --Output: 30
+end
+
+some_function(30)
+
+print(test)
+--Output: 20</code></pre>
+<p>If you run the game, it should print: 40, 30, 20, 10. Let's take a look at this code step by step.</p>
+<p>The first print is inside the if-statement, and it's 40. After the if-statement we print <code>test</code> again, and now it's 30, which is what we passed as argument. The parameter <code>test</code> was not affected by the <code>test</code> inside the if-statement. Inside the if-statement the local variable took priority over the parameter.</p>
+<p>Outside of the function we also print <code>test</code>. This time it's 20. The <code>test</code> created a the start of <code>example.lua</code> was not affected by the <code>test</code> inside the function.</p>
+<p>Lastly we print <code>test</code> in <code>main.lua</code>, and it's 10. The global variable was not affected by the local variables inside <code>example.lua</code>.</p>
+<p>I made a visualization of the scope of each <code>test</code> to make it even more clear:</p>
+<p><img src="../../images/book/9/scope.png" alt="" target="_blank" /></p>
+<p>When creating a local variable, you don't have to assign a value right away.</p>
+<pre><code class="language-lua">local test
+test = 20</code></pre>
+<hr />
+<h2>Returning a value</h2>
+<p>Like functions, files can return a value. If we put <code>return 10</code> at the end of <code>example.lua</code>, and inside <code>main.lua</code> we do <code>print(require("example"))</code>, you will see that it prints 10.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>With <code>require</code> we can load other lua-files. When you create a variable you can use it in all files. Unless you create a local variable, which is limited to its scope. Local variables do not affect variables with the same name outside of their scope.</p></div><div class="nav"><ul><li><a href="8.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="10.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_9 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

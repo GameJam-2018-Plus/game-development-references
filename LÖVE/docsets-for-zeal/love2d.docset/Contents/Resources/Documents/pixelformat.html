@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>PixelFormat - LOVE</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="main.css" rel="stylesheet">
+</link></meta></meta></head>
+<body>
+<h1 class="firstHeading" id="firstHeading" lang="en">PixelFormat</h1><div id="bodyContent">
+<!-- <div id="siteSub">From LOVE</div> -->
+<!-- <div id="contentSub"></div> -->
+<!-- <div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div> -->
+<!-- start content -->
+<div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><table bgcolor="#d0d0ff" class="new-section" data-newin="[[11.0]]" style="margin-top: 1em; padding: 3px; border-radius:5px; -moz-border-radius:5px;">
+<tr>
+<td><i> <b>Available since LÖVE 11.0</b> </i>
+</td></tr>
+<tr>
+<td> <small>This enum replaces <a href="canvasformat.html" title="CanvasFormat">CanvasFormat</a> and <a href="compressedimageformat.html" title="CompressedImageFormat">CompressedImageFormat</a>.</small>
+</td></tr></table>
+<p>Pixel formats for <a href="texture.html" title="Texture">Textures</a>, <a href="imagedata.html" title="ImageData">ImageData</a>, and <a href="compressedimagedata.html" title="CompressedImageData">CompressedImageData</a>.
+</p>
+<table align="center" bgcolor="gold" class="notice" style="border-style:solid;border-width:1px;-moz-border-radius:3px;border-radius:3px;" width="80%">
+<tr>
+<td width="1"> <img alt="O.png" height="64" src="w-images-0-09-o.png" width="64"/>
+</td>
+<td>This page is a work-in-progress.
+</td>
+<td width="1"> 
+</td></tr></table><br/>
+<h2><span class="mw-headline" id="Normal_color_formats">Normal color formats</span></h2>
+<h3><span class="mw-headline" id="Constants">Constants</span></h3>
+<table class="wikitable">
+<tr>
+<th> Name
+</th>
+<th> Components
+</th>
+<th> Bits per pixel
+</th>
+<th> Range
+</th>
+<th> Usable with <a href="canvas.html" title="Canvas">Canvases</a>
+</th>
+<th> Usable with <a href="imagedata.html" title="ImageData">ImageData</a>
+</th>
+<th> Note(s)
+</th></tr>
+<tr>
+<td>r8
+</td>
+<td>1
+</td>
+<td>8
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rg8
+</td>
+<td>2
+</td>
+<td>16
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgba8
+</td>
+<td>4
+</td>
+<td>32
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>srgba8
+</td>
+<td>4
+</td>
+<td>32
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td><a href="love-graphics-isgammacorrect.html" title="love.graphics.isGammaCorrect">gamma-correct</a> version of rgba8.
+</td></tr>
+<tr>
+<td>rgba16
+</td>
+<td>4
+</td>
+<td>64
+</td>
+<td>[0, 1]
+</td>
+<td>
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>r16f
+</td>
+<td>1
+</td>
+<td>16
+</td>
+<td>[-65504, +65504]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rg16f
+</td>
+<td>2
+</td>
+<td>32
+</td>
+<td>[-65504, +65504]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgba16f
+</td>
+<td>4
+</td>
+<td>64
+</td>
+<td>[-65504, +65504]
+</td>
+<td>Yes
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>r32f
+</td>
+<td>1
+</td>
+<td>32
+</td>
+<td>[-infinity, +infinity]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rg32f
+</td>
+<td>2
+</td>
+<td>64
+</td>
+<td>[-infinity, +infinity]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgba32f
+</td>
+<td>4
+</td>
+<td>128
+</td>
+<td>[-infinity, +infinity]
+</td>
+<td>Yes
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgba4
+</td>
+<td>4
+</td>
+<td>16
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgb5a1
+</td>
+<td>4
+</td>
+<td>16
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgb565
+</td>
+<td>3
+</td>
+<td>16
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rgb10a2
+</td>
+<td>4
+</td>
+<td>32
+</td>
+<td>[0, 1]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>rg11b10f
+</td>
+<td>3
+</td>
+<td>32
+</td>
+<td>[0, 65024]
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="Depth_.2F_stencil_formats">Depth / stencil formats</span></h2>
+<p>All depth and stencil pixel formats are only usable in <a href="canvas.html" title="Canvas">Canvases</a>. They are <a href="texture-isreadable.html" title="Texture:isReadable">non-readable</a> by default, and Canvases with a depth/stencil format created with the <a href="love-graphics-newcanvas.html" title="love.graphics.newCanvas">readable flag</a> can only access the depth values of their pixels in shaders (stencil values are not readable no matter what).
+</p>
+<h3><span class="mw-headline" id="Constants_2">Constants</span></h3>
+<table class="wikitable">
+<tr>
+<th> Name
+</th>
+<th> Bits per pixel
+</th>
+<th> Has depth
+</th>
+<th> Has stencil
+</th>
+<th> Note(s)
+</th></tr>
+<tr>
+<td>stencil8
+</td>
+<td>8
+</td>
+<td>
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>depth16
+</td>
+<td>16
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>depth24
+</td>
+<td>24
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>depth32f
+</td>
+<td>32
+</td>
+<td>Yes
+</td>
+<td>
+</td>
+<td>
+</td></tr>
+<tr>
+<td>depth24stencil8
+</td>
+<td>32
+</td>
+<td>Yes
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr>
+<tr>
+<td>depth32fstencil8
+</td>
+<td>40
+</td>
+<td>Yes
+</td>
+<td>Yes
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="Compressed_formats">Compressed formats</span></h2>
+<p>All compressed pixel formats are only usable in <a href="image.html" title="Image">Images</a> via <a href="compressedimagedata.html" title="CompressedImageData">CompressedImageData</a> (compressed textures). Unlike regular color formats, these stay compressed in RAM and VRAM. This is good for saving memory space as well as improving performance, since the graphics card will be able to keep more of the image's pixels in its fast-access cache when drawing it.
+</p>
+<h3><span class="mw-headline" id="Constants_3">Constants</span></h3>
+<table class="wikitable">
+<tr>
+<th> Name
+</th>
+<th> Components
+</th>
+<th> Bits per pixel
+</th>
+<th> Range
+</th>
+<th> Note(s)
+</th></tr>
+<tr>
+<td>DXT1
+</td>
+<td>3
+</td>
+<td>4
+</td>
+<td>[0, 1]
+</td>
+<td>
+</td></tr></table>
+<h2><span class="mw-headline" id="See_Also">See Also</span></h2>
+<ul><li> <a href="love-image.html" title="love.image">love.image</a></li>
+<li> <a href="love-graphics.html" title="love.graphics">love.graphics</a></li>
+<li> <a href="love-image-newimagedata.html" title="love.image.newImageData">love.image.newImageData</a></li>
+<li> <a href="love-graphics-getimageformats.html" title="love.graphics.getImageFormats">love.graphics.getImageFormats</a></li>
+<li> <a href="love-graphics-getcanvasformats.html" title="love.graphics.getCanvasFormats">love.graphics.getCanvasFormats</a></li>
+<li> <a href="love-graphics-newcanvas.html" title="love.graphics.newCanvas">love.graphics.newCanvas</a></li>
+<li> <a href="texture-getformat.html" title="Texture:getFormat">Texture:getFormat</a></li>
+<li> <a href="imagedata-getformat.html" title="ImageData:getFormat">ImageData:getFormat</a></li>
+<li> <a href="compressedimagedata-getformat.html" title="CompressedImageData:getFormat">CompressedImageData:getFormat</a></li></ul>
+<!-- 
+NewPP limit report
+CPU time usage: 0.080 seconds
+Real time usage: 0.085 seconds
+Preprocessor visited node count: 307/1000000
+Preprocessor generated node count: 922/1000000
+Post‐expand include size: 4023/2097152 bytes
+Template argument size: 1402/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key love2d_wiki:pcache:idhash:6314-0!*!0!!*!5!* and timestamp 20180405060609 and revision id 21357
+ -->
+</div>
+<!-- end content -->
+<div class="visualClear"></div>
+</div>
+</body>
+</html>

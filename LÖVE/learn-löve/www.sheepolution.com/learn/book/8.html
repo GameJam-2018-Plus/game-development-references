@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="7.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="9.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 8 - Objects</h1>
+<p>In the previous chapter we used tables as numbered lists, but we can also store values in a different way: With strings.</p>
+<pre><code class="language-lua">function love.load()
+    --rect is short for rectangle
+    rect = {}
+    rect["width"] = 100
+end</code></pre>
+<p><code>"width"</code> in this case is what we call a <em>key</em> or a <em>property</em>. So the table <code>rectangle</code> now has the property <code>"width"</code> with a value of 100. We don't need to use strings every time we want to create property. A dot (.) is the shorthand for <code>table_name["property_name"]</code>. Let's add some more properties.</p>
+<pre><code class="language-lua">function love.load()
+    rect = {}
+    rect.x = 100
+    rect.y = 100
+    rect.width = 70
+    rect.height = 90
+end</code></pre>
+<p>Now that we have our properties we can start drawing the rectangle.</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.rectangle("line", rect.x, rect.y, rect.width, rect.height)
+end</code></pre>
+<p>And let's make it move!</p>
+<pre><code class="language-lua">function love.load()
+    rect = {}
+    rect.x = 100
+    rect.y = 100
+    rect.width = 70
+    rect.height = 90
+
+    --Add a speed property
+    rect.speed = 100
+end
+
+function love.update(dt)
+    rect.x = rect.x + rect.speed * dt
+end</code></pre>
+<p>Now we have a moving rectangle again, but to show the power of tables, I want to create multiple moving rectangles. For this we're going to use a table as a list. We'll make a list of rectangles. Move the code inside the <code>love.load</code> to a new function, and create a new table in <code>love.load</code>.</p>
+<pre><code class="language-lua">function love.load()
+    --Remember: camelCasing!
+    listOfRectangles = {}
+end
+
+function createRect()
+    rect = {}
+    rect.x = 100
+    rect.y = 100
+    rect.width = 70
+    rect.height = 90
+    rect.speed = 100
+
+    --Put the new rectangle in the list
+    table.insert(listOfRectangles, rect)
+end</code></pre>
+<p>So now every time we call <code>createRect</code>, a new rectangle object will be added to our list. That's right, a table filled with tables. Let's make it, so that whenever we press space, we call <code>createRect</code>. We can do this with the callback <code>love.keypressed</code>.</p>
+<pre><code class="language-lua">function love.keypressed(key)
+    --Remember, 2 equal signs (==) for comparing!
+    if key == "space" then
+        createRect()
+    end
+end</code></pre>
+<p>Whenever we press a key, LÖVE will call love.keypressed, and pass the pressed key as argument. If that key is <code>"space"</code>, it will call <code>createRect</code>.</p>
+<p>Last thing to do is to change our update and draw function. We have to iterate through or list of rectangles.</p>
+<pre><code>function love.update(dt)
+    for i,v in ipairs(listOfRectangles) do
+        v.x = v.x + v.speed * dt
+    end
+end
+
+function love.draw(dt)
+    for i,v in ipairs(listOfRectangles) do
+        love.graphics.rectangle("line", v.x, v.y, v.width, v.height)
+    end
+end</code></pre>
+<p>And now when you run the game, a moving rectangle should appear everytime you press space.</p>
+<hr />
+<h2>One more time?</h2>
+<p>That was a lot of code in a rather short tutorial. I can imagine it can be quite confusing so let's go through the whole code one more time:</p>
+<p>In <code>love.load</code> we created a table called <code>listOfRectangles</code>.</p>
+<p>When we press space, LÖVE calls <code>love.keypressed</code>, and inside that function we check if the pressed key is <code>"space"</code>. If so, we call the function <code>createRect</code>.</p>
+<p>In <code>createRect</code> we create a new table. We give this table properties, like <code>x</code> and <code>y</code>, and we store this new table inside our list <code>listOfRectangles</code>.</p>
+<p>In <code>love.update</code> and <code>love.draw</code> we iterate through this list of rectangles, to update and draw each rectangle.</p>
+<hr />
+<h2>Functions</h2>
+<p>An object can also have functions. You create a function for an object like this:</p>
+<pre><code class="language-lua">function tableName.functionName()
+
+end</code></pre>
+<hr />
+<h2>TL;DR</h2>
+<p>We can store values in tables not only with numbers but also with strings. We call these type of tables <em>objects</em>. Having objects saves us from creating a lot of variables.</p></div><div class="nav"><ul><li><a href="7.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="9.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_8 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="6.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="8.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 7 - Tables and for-loops</h1>
+<h2>Tables</h2>
+<p>Tables are basically lists in which we can store values.</p>
+<p>You create a table with curly brackets ({ }):</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {}
+
+end
+
+function love.update()
+
+end
+
+function love.draw()
+
+end</code></pre>
+<p>We just created a table called fruits. Now we need to store values inside the table. There are multiple ways to do this.</p>
+<p>One way is to put the values inside the curly brackets.</p>
+<pre><code class="language-lua">function love.load()
+    --Each value is separated by a comma, just like with parameters and arguments
+    fruits = {"apple", "banana"}
+end</code></pre>
+<p>We can also use the function <code>table.insert</code>. The first argument is the table, the second argument is the value we want to store inside that table.</p>
+<pre><code class="language-lua">function love.load()
+    --Each value is separated by a comma, just like with parameters and arguments
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+end</code></pre>
+<p>So now after love.load our table will contain <code>"apple"</code>, <code>"banana"</code> and <code>"pear"</code>. To prove that, let's put the values on screen. For that we're going to use <code>love.graphics.print</code>.</p>
+<pre><code class="language-lua">function love.draw()
+    --Arguments: (string, x-position, y-position)
+    love.graphics.print("Test", 100, 100)
+end</code></pre>
+<p>When you run the game, you should see the text &quot;test&quot; written. We can acces the values of our table by writing the tables name, followed by brackets ([ ]) (So not curly but square brackets!). Inside these brackets, we write the position of the value we want.</p>
+<p><img src="../../images/book/7/table.png" alt="" target="_blank" /></p>
+<p>Like I said, tables are a list of values. We first added <code>"apple"</code> and <code>"banana"</code>, so those are on the first and second position in the list. Next we added <code>"pear"</code>, so that's on the third position in the list. On position 4 there is no value (yet), since we only added 3 values.</p>
+<p>So if we want to print <code>"apple"</code>, we have to get the first value of the list.</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.print(fruits[1], 100, 100)
+end</code></pre>
+<p>And so now it should draw <code>"apple"</code>. If you replace the <code>[1]</code> with <code>[2]</code>, you should get <code>"banana"</code>, and with <code>[3]</code> you get <code>"pear"</code>.</p>
+<p>Now we want to draw all 3 fruits. We could use love.graphics.print 3 times, each with a different table entry...</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.print(fruits[1], 100, 100)
+    love.graphics.print(fruits[2], 100, 200)
+    love.graphics.print(fruits[3], 100, 300)
+end</code></pre>
+<p>...but imagine if we had 100 values in our table. Luckily, there's a solution for this: for-loops!</p>
+<hr />
+<h2>for-loops</h2>
+<p>A for-loops is a way to repeat a piece of code a certain amount of times.</p>
+<p>You create a for-loop like this:</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+
+    for i=1,10 do
+        print("hello", i)
+    end
+end</code></pre>
+<p>If you run the game you should see it prints hello 1, hello 2, hello 3, all the way to 10.</p>
+<p>To create a for-loop, first you write <code>for</code>. Next you write a variable and give it a numeric value. This is where the for-loop starts. The variable can be named anything, but it's common to use <code>i</code>. This variable can only be used inside the for-loop (just like with functions and parameters). Next you write the number to which it should count. So for example <code>for i=6,18 do</code> will start at 6 and keep looping till it's at 18.</p>
+<p>There is also a third, optional number. This is by how much the variable increases. <code>for i=6,18,4 do</code> would go: 6, 10, 14, 18. With this you can also make for-loops go backwards with -1.</p>
+<p>Our table starts at 1 and has 3 values, so we will write:</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+
+    for i=1,3 do
+        print(fruits[i])
+    end
+end</code></pre>
+<p>When you run the game you'll see that it prints all 3 fruits. In the first loop it prints <code>fruits[1]</code>, then in the second loop <code>fruits[2]</code>and finally in the third loop <code>fruits[3]</code>.</p>
+<hr />
+<h2>Editing tables</h2>
+<p>But what if we add or remove a value from a table? We would have to change the 3 into another number. For that we use <code>#fruits</code>. With the #-sign, we can get the length of a table. The length of a table refers to the number of things in that table. That length would be <code>3</code> in our case, since we have 3 entries: <code>apple</code>, <code>banana</code>, and <code>pear</code> in our <code>fruits</code> table.</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+
+    print(#fruits)
+    --Output: 3
+
+    for i=1,#fruits do
+        print(fruits[i])
+    end
+end</code></pre>
+<p>Let's use this knowledge to draw all 3 fruits.</p>
+<pre><code class="language-lua">function love.draw()
+    for i=1,#fruits do
+        love.graphics.print(fruits[i], 100, 100)
+    end
+end</code></pre>
+<p>If you run the game you should see it draws all 3 fruits, expect they're all drawn on the same position. We can fix this by printing each number on a different height.</p>
+<pre><code class="language-lua">function love.draw()
+    for i=1,#fruits do
+        love.graphics.print(fruits[i], 100, 100 + 50 * i)
+    end
+end</code></pre>
+<p>So now <code>"apple"</code> will be drawn on the y-position 100 + 50 * 1, which is 150. Then <code>"banana"</code> gets drawn on 200, and <code>"pear"</code> on 250.</p>
+<p>If we were to add another fruit, we won't have to change anything. It will automatically be drawn. Let's add <code>"pineapple"</code>.</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+    table.insert(fruits, "pineapple")
+end</code></pre>
+<p>We can also remove values from our table. For that we use <code>table.remove</code>. The first argument is the table we want to remove something from, the second argument is the position we want to remove. So if we want to remove banana, we do the following:</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+    table.insert(fruits, "pineapple")
+    table.remove(fruits, 2)
+end</code></pre>
+<p>When you run the game you'll see that banana is no longer drawn, and that pear and pinapple have moved up.</p>
+<p><img src="../../images/book/7/shift.png" alt="" target="_blank" /></p>
+<p>When you remove a value from a table with <code>table.remove</code>, all the following items in the table will move up. So what was on position 3 is now on position 2 in the table. And what was on position 4 is now on position 3.</p>
+<p>You can also add or change the values inside the table directly. For example, we can change <code>"apple"</code> into <code>"tomato"</code>:</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+    table.insert(fruits, "pineapple")
+    table.remove(fruits, 2)
+    --The value of position 1 in the table becomes "tomato"
+    fruits[1] = "tomato"
+end</code></pre>
+<hr />
+<h2>ipairs</h2>
+<p>Back to the for-loops. There is actually another way, and an easier way to loop through the table. We can use an <code>ipairs</code> loop.</p>
+<pre><code class="language-lua">function love.load()
+    fruits = {"apple", "banana"}
+    table.insert(fruits, "pear")
+    table.insert(fruits, "pineapple")
+    table.remove(fruits, 2)
+    fruits[1] = "tomato"
+
+    for i,v in ipairs(fruits) do
+        print(i, v)
+    end
+    --Output:
+    --1, "tomato"
+    --2, "pear"
+    --3, "pineapple"
+end</code></pre>
+<p>This for-loop loops, or what we also call <em>iterates</em>, through all the values in the table. The variables <code>i</code> tells us the position of the table, <code>v</code> is the value of that position in the table. It's basically a shorthand for <code>fruits[i]</code>. For example, in the first iteration the values for the variables  <code>i</code> would be <code>1</code> and <code>v</code> would be <code>"apple"</code>. In the second iteration, <code>i</code> and <code>v</code> would be <code>2</code> and <code>"pear"</code> respectively. Let's use <code>ipairs</code> for drawing our tables.</p>
+<pre><code class="language-lua">function love.draw()
+    --i and v are variables, so we can name them whatever we want
+    for i,frt in ipairs(fruits) do
+        love.graphics.print(frt, 100, 100 + 50 * i)
+    end
+end</code></pre>
+<hr />
+<h2>TL;DR</h2>
+<p>Tables are lists in which we can store values. We store these values when creating the table, with <code>table.insert</code>, or with <code>table_name[1] = "some_value"</code>. We can get the length of the table with <code>#table_name</code>. With for-loops we can repeat a piece of code a number of times. We can also use for-loops to iterate through tables.</p></div><div class="nav"><ul><li><a href="6.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="8.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_7 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

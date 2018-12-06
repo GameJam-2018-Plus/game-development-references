@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="1.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="3.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 2 - Variables</h1>
+<p>What is a + b?</p>
+<p>Well it could be anything. That's because &quot;a&quot; and &quot;b&quot; don't have a value. Let's change that.</p>
+<pre><code class="language-lua">a = 5
+b = 3</code></pre>
+<p>Let's take another look, what is a + b? What we're really asking is &quot;What is the value of a + the value of b?&quot;. In other words, what is 5 + 3? Which is 8.</p>
+<p>To proof that a + b = 8, we're going to print it.</p>
+<pre><code class="language-lua">a = 5
+b = 3
+print(a + b)
+--Output: 8</code></pre>
+<p>Run your code, and your console should say <code>8</code> .</p>
+<p><code>a</code> and <code>b</code> are what we call <em>variables</em>. A variable is a word in which you can store a value. The number 4 is always 4, and 35 is always 35, but a variable can be anything you want it to be. Hence the name variable.</p>
+<p>The word in which you store a value can be almost anything.</p>
+<pre><code class="language-lua">sheep = 3
+test = 20
+PANTS = 1040
+asdfghjkl = 42</code></pre>
+<p>Variables are <em>case-sensitive</em>. That means that when you have the same word, but with different casing, it's not treated as the same. For example</p>
+<pre><code class="language-lua">sheep = 3
+SHEEP = 10
+sHeEp = 200</code></pre>
+<p>are 3 different variables, with each their own value.</p>
+<p>You can do more than just summing up numbers.</p>
+<pre><code class="language-lua">a = 20 - 10 --Substraction
+b = 20 * 10 --Multiplication
+c = 20 / 10 --Division
+d = 20 ^ 10 --Exponentiation</code></pre>
+<p>For numbers with decimals we use a dot.</p>
+<pre><code class="language-lua">a = 10.4
+b = 2.63
+c = 0.1
+pi = 3.141592</code></pre>
+<p>Take a look at the following code:</p>
+<pre><code class="language-lua">a = 5
+b = 3
+c = a + b</code></pre>
+<p>First we say <code>a = 5</code>. When we give a variable a value, we call that an <em>assignment</em>. We <em>assign</em> 5 to <code>a</code>, and 3 to <code>b</code>. Next we assign <code>a + b</code> to <code>c</code>. So now <code>c</code> equals 8. Remember that you can always check the value of a variable with <code>print</code>. If we were to change the value of <code>a</code> or <code>b</code> after <code>c = a + b</code>, it would not affect <code>c</code>. It would still be 8.</p>
+<pre><code class="language-lua">a = 5
+b = 3
+c = a + b
+a = 2
+b = 40
+print(c)
+--Output: 8</code></pre>
+<p>This is because in the computer's eyes <code>c</code> is not <code>a + b</code>, it's simply 8.</p>
+<hr />
+<h2>Strings</h2>
+<p>A variable can also store text.</p>
+<pre><code class="language-lua">text = "Hello World!"</code></pre>
+<p>This is what we call a <em>string</em>. Because it's a string of characters.</p>
+<p>We can connect strings by using 2 dots (..)</p>
+<pre><code class="language-lua">name = "Daniel"
+age = "22"
+text = "Hello, my name is " .. name .. ", and I'm " .. age .. " years old."
+print(text)
+--Output: "Hello, my name is Daniel, and I'm 22 years old."</code></pre>
+<hr />
+<h2>Variable naming rules</h2>
+<p>There are a few rules when naming a variable. First of all, your variable may have a number in it, but not at the start.</p>
+<pre><code class="language-lua">test8 --Good
+te8st --Good
+8test --Bad, error!</code></pre>
+<p>Your variable name also can't include any special characters like @#$%^&amp;*.</p>
+<p>And finally, your variable name can't be a keyword. A keyword is a word that the programming language uses. Here's a list of keywords:</p>
+<pre><code class="language-nil">and       break     do        else      elseif
+end       false     for       function  if
+in        local     nil       not       or
+repeat    return    then      true      until     while</code></pre>
+<hr />
+<h2>TL;DR (Too long; Didn't read)</h2>
+<p>Variables are words in which we can store a value like a number or text. You can name them whatever you want, with a few exceptions. Variables are case-sensitive.</p></div><div class="nav"><ul><li><a href="1.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="3.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_2 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

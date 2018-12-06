@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="10.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="12.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 11 - Classes</h1>
+<p>Classes are like blueprints. You can create multiple houses, with 1 blueprint. And like that we can create multiple objects from 1 class.
+<img src="../../images/book/11/1.png" alt="" target="_blank" /></p>
+<p>For classes we're going to use a library: <a target="_blank" href="https://github.com/rxi/classic">classic</a>.</p>
+<p>Click on <code>classic.lua</code> and then on Raw, and <a target="_blank" href="https://raw.githubusercontent.com/rxi/classic/master/classic.lua">copy the code</a>.</p>
+<p>Go to your text-editor, create a new file called <code>classic.lua</code> and paste the code.</p>
+<p>Now we have to require it.</p>
+<pre><code class="language-lua">function love.load()
+    Object = require "classic"
+end</code></pre>
+<p>And now we're ready to make a class. Create a new file called <code>rectangle.lua</code>, and put in the following code:</p>
+<pre><code class="language-lua">--! file: rectangle.lua
+
+--Note how it uses a column (:) and not a dot (.)
+Rectangle = Object:extend()
+
+function Rectangle.new(self)
+    self.test = math.random(1, 1000)
+end</code></pre>
+<p>Everything will be explained. But first put this code in your <code>main.lua</code>.</p>
+<pre><code class="language-lua">--! file: main.lua
+function love.load()
+    Object = require "classic"
+    --Don't forget to load the file
+    require "rectangle"
+
+    r1 = Rectangle()
+    r2 = Rectangle()
+    print(r1.test, r2.test)
+end</code></pre>
+<p>When you run the game, you´ll see that 2 random numbers are printed.</p>
+<p>So let's go through this code step by step. First we create a new class with <code>Rectangle = Object:extend()</code>. This makes <code>Rectangle</code> become a class. This will be our blueprint. As opposed to properties, classes are usually written with an uppercase character.</p>
+<p>In <code>main.lua</code> we say <code>r1 = Rectangle()</code>. Even though <code>Rectangle</code> is a table, we can still call it as if it's a function. How that works is for another chapter. But by calling <code>Rectangle()</code>, it creates a new instance. What that means is that it takes our blueprint and creates a new object with all the class its features. Every new instance is unique.</p>
+<p>To prove that <code>r1</code> is unique, we create another instance called <code>r2</code>. Both have the property <code>test</code>, but they have different values.</p>
+<p>When we call <code>Rectangle()</code>, it executes <code>Rectangle.new</code>. This is what we call the <em>constructor</em>.</p>
+<p>The parameter <code>self</code>, is the instance we're modifying. If we were to type <code>Rectangle.test = math.random(0, 1000)</code>, we would be giving the property to the blueprint, and not to an instance made with the blueprint.</p>
+<p>Let's make some changes to our class:</p>
+<pre><code class="language-lua">--! file: rectangle.lua
+function Rectangle.new(self)
+    self.x = 100
+    self.y = 100
+    self.width = 200
+    self.height = 150
+    self.speed = 100
+end
+
+function Rectangle.update(self, dt)
+    self.x = self.x + self.speed * dt
+end
+
+function Rectangle.draw(self)
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+end</code></pre>
+<p>It's like the moving rectangle object we made in <a target="_blank" href="8.html">chapter 8</a>. Except this time we put the code of the movement and drawing part in the object. Now we only need to call update and draw in <code>main.lua</code>.</p>
+<pre><code class="language-lua">--! file: main.lua
+
+function love.load()
+    require "rectangle"
+    r1 = Rectangle()
+    r2 = Rectangle()
+end
+
+function love.update(dt)
+    r1.update(r1, dt)
+end
+
+function love.draw()
+    r1.draw(r1)
+end</code></pre>
+<p>When you run the game you'll see a moving rectangle.</p>
+<p>So we created a class called <code>Rectangle</code>. We create an instance of that class called <code>r1</code>. So now <code>r1</code> has the functions <code>update</code> and <code>draw</code>. We call these functions, and as first argument we pass the instance itself, <code>r1</code>. This is what <code>self</code> becomes in the functions.</p>
+<p>It's kind of annoying though, how we have to pass <code>r1</code> everytime we call one of its functions. Luckily, Lua has a shorthand for this. When we use a colon (:), the function-call will automatically pass the object left of the colon as first argument.</p>
+<pre><code class="language-lua">--! file: main.lua
+function love.update(dt)
+    --Lua turns this into: r1.update(r1, dt)
+    r1:update(dt)
+end
+
+function love.draw()
+    --Lua turns this into: r1.draw(r1)
+    r1:draw()
+end</code></pre>
+<p>And we can do this with the functions as well.</p>
+<pre><code class="language-lua">--! file: rectangle.lua
+
+--Lua turns this into: Rectangle.new(self)
+function Rectangle:new()
+    self.x = 100
+    self.y = 100
+    self.width = 200
+    self.height = 150
+    self.speed = 100
+end
+
+--Lua turns this into: Rectangle.update(self, dt)
+function Rectangle:update(dt)
+    self.x = self.x + self.speed * dt
+end
+
+--Lua turns this into: Rectangle.draw(self)
+function Rectangle:draw()
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+end</code></pre>
+<p>Let's add some parameters to <code>Rectangle:new()</code></p>
+<pre><code class="language-lua">--! file: rectangle.lua
+function Rectangle:new(x, y, width, height)
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+    self.speed = 100
+end</code></pre>
+<p>With this we can give <code>r1</code> and <code>r2</code> each their own position and size.</p>
+<pre><code class="language-lua">--! file: main.lua
+
+function love.load()
+    r1 = Rectangle(100, 100, 200, 50)
+    r2 = Rectangle(180, 300, 25, 140)
+end
+
+function love.update(dt)
+    r1:update(dt)
+    r2:update(dt)
+end
+
+function love.draw()
+    r1:draw()
+    r2:draw()
+end</code></pre>
+<p>So now we have 2 moving rectangles. This is what makes classes so great. <code>r1</code> and <code>r2</code> are the same, yet they are unique.</p>
+<p>Another thing that makes classes great is <em>inheritance</em>.</p>
+<hr />
+<h2>Inheritance</h2>
+<p>With inheritance, we can extend our class. In other words, we make a copy of our blueprint, and add features to it, without editing the original blueprint.</p>
+<p><img src="../../images/book/11/2.png" alt="" target="_blank" /></p>
+<p>Let's say you have a game with monsters. Every monster has their own attack, they move differently. But they can also get damage, and are able to die. These overlapping features should be put in what we call a <em>superclass</em> or <em>baseclass</em>. They provide the features that all monsters have. And then each monster's class can extend this baseclass and add their own features to it.</p>
+<p>Let's create another moving shape, a circle. What will our moving rectangle and circle have in common? Well they will both move. So let's make a baseclass for both of our shapes.</p>
+<p>Create a new file called <code>shape.lua</code>, and put in the following code:</p>
+<pre><code class="language-lua">--! file: shape.lua
+Shape = Object:extend()
+
+function Shape:new(x, y)
+    self.x = x
+    self.y = y
+    self.speed = 100
+end
+
+function Shape:update(dt)
+    self.x = self.x + self.speed * dt
+end</code></pre>
+<p>Our baseclass <code>Shape</code> now handles the movement. I should point out that <em>baseclass</em> is just a term. &quot;A is a baseclass of B&quot;. A baseclass is still the same like any other class. It's just different in how we use it.</p>
+<p>Anyway, now that we have a baseclass that handles our movement, we can make <code>Rectangle</code> an extension of <code>Shape</code>, and remove its updater.</p>
+<pre><code class="language-lua">--! file: rectangle.lua
+Rectangle = Shape:extend()
+
+function Rectangle:new(x, y, width, height)
+    Rectangle.super.new(self, x, y)
+    self.width = width
+    self.height = height
+end
+
+function Rectangle:draw()
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+end</code></pre>
+<p>With <code>Rectangle = Shape:extend()</code> we made <code>Rectangle</code> an extension of <code>Shape</code>.</p>
+<p><code>Shape</code> has its own function called <code>:new()</code>. By creating <code>Rectangle:new()</code>, we override the original function. Meaning that when we call <code>Rectangle()</code>, it will not execute <code>Shape:new()</code> but instead <code>Rectangle:new()</code>.</p>
+<p>But rectangle has the property <code>super</code>, which is the class <code>Rectangle</code> is extended from. With <code>Rectangle.super</code> we can get access to our baseclass's functions, and we use it to call <code>Shape:new()</code>.</p>
+<p>We have to pass <code>self</code> as first argument ourselves, and can't let Lua handle it with a colon (:), because we're not calling the function as the instance.</p>
+<p>Now we need to make a circle class. Create a new file called <code>circle.lua</code>, and put in the following code.</p>
+<pre><code class="language-lua">--! file: circle.lua
+Circle = Shape:extend()
+
+function Circle:new(x, y, radius)
+    Circle.super.new(self, x, y)
+    --A circle doesn't have a width or height. It has a radius.
+    self.radius = radius
+end
+
+function Circle:draw()
+    love.graphics.circle("line", self.x, self.y, self.radius)
+end</code></pre>
+<p>So we make <code>Circle</code> an extension of <code>Shape</code>. We pass <code>x</code> and <code>y</code> to the <code>new()</code> function of <code>Shape</code> with <code>Circle.super.new(self, x, y)</code>.</p>
+<p>We give our <code>Circle</code> class its own draw function. This is how you draw a circle. Circles don't have a width or height, they have a radius.</p>
+<p>And now in <code>main.lua</code> load <code>shape.lua</code> and <code>circle.lua</code>, and change <code>r2</code> to a circle.</p>
+<pre><code class="language-lua">--! file: main.lua
+
+function love.load()
+    Object = require "classic"
+    --Don't forget to load the file
+    require "shape"
+
+    require "rectangle"
+
+    --Don't forget to load the file
+    require "circle"
+
+    r1 = Rectangle(100, 100, 200, 50)
+
+    --We make r2 a Circle instead of a Rectangle
+    r2 = Circle(180, 300, 50)
+end</code></pre>
+<p>Now when you run the game you'll see a moving rectangle and a moving circle.</p>
+<hr />
+<h2>One more time</h2>
+<p>Let's go through all this code one more time.</p>
+<p>First we load the library classic with <code>require "classic"</code>. Loading this library returns a table, and we store this table inside <code>Object</code>. It has the very basics needed to simulate a class. Because Lua doesn't have classes, but by using <code>classic</code> we get a very nice imitation of a class.</p>
+<p>Next we load <code>shape.lua</code>. In that file we create a new class called <code>Shape</code>. We will use this class as a <em>baseclass</em> for <code>Rectangle</code> and <code>Circle</code>. The 2 things that these classes have in common is that they have an <code>x</code> and <code>y</code> property, and that it moves horizontally. These similarities is what we put in <code>Shape</code>.</p>
+<p>Next we create the <code>Rectangle</code> class. We make it an extension of our baseclass <code>Shape</code>. Inside the <code>:new()</code> function, the <em>constructor</em>, we call the constructor of our baseclass with <code>Rectangle.super.new(self, x, y)</code>. We pass <code>self</code> as first argument, so that <code>Shape</code> will use the instance of our blueprint, and not the blueprint itself. We give our rectangle a <code>width</code> and <code>height</code> property, and give it a draw function.</p>
+<p>Next we repeat the above, except for a circle. So instead of a <code>width</code> and <code>height</code> we give it a <code>radius</code> property.</p>
+<p>Now that we have our classes ready, we can start making <em>instances</em> of these classes. With <code>r1 = Rectangle(100, 100, 200, 50)</code> we create an instance of our class <code>Rectangle</code>. It is an object made out of our blueprint, and not the blueprint itself. Any changes we make to this instance will not affect the class. We update and draw this instance, and for that we use a colon (:). This is because we need to pass our instance as first argument, and the colon will make Lua do it for us.</p>
+<p>And finally we do the same for <code>r2</code>, except we make it a <code>Circle</code>.</p>
+<hr />
+<h2>Confused?</h2>
+<p>That was a lot of information for 1 chapter, and I can imagine if you're having a hard time understanding all of this. My advice: Keep following the tutorials. If you're new to programming it will take some time before you get all these new concepts, but eventually it will &quot;click&quot;. I will keep adding explanations on older subjects while talking about the newer ones.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>Classes are like blueprints. We can create multiple objects out of 1 class. To simulate classes we use the library classic. You create a class with <code>ClassName = Object:extend()</code>. You create an instance of a class with <code>instanceName = ClassName()</code>. This will call the function <code>ClassName:new()</code>. This is called the <em>constructor</em>. Every function of a class should start with the parameter <code>self</code> so that when calling the function you can pass the instance as first argument. <code>instanceName.functionName(instanceName)</code>. We can use colons (:) to make Lua do this for us.</p>
+<p>We can extend a class with <code>ExtensionName = ClassName:extend()</code>. This makes <code>ExtensionName</code> a copy of <code>ClassName</code> that we can add properties to without editing <code>ClassName</code>. If we give <code>ExtensionName</code> a function that <code>ClassName</code> already has, we can still call the original function with <code>ExtensionName.super.functionName(self)</code>.</p></div><div class="nav"><ul><li><a href="10.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="12.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_11 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="9.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="11.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 10 - Libraries</h1>
+<p>A library is code that everyone can use to add certain functionality to their project.</p>
+<p>Let's try out a library. We're going to use <em>tick</em> by <em>rxi</em>. You can find the library on <a target="_blank" href="https://github.com/rxi/tick">GitHub</a>.</p>
+<p>Click on <code>tick.lua</code> and then on Raw, and <a target="_blank" href="https://raw.githubusercontent.com/rxi/tick/master/tick.lua">copy the code</a>.</p>
+<p>Go to your text-editor, create a new file called <code>tick.lua</code> and paste the code.</p>
+<p>Now we have to follow the instructions on the GitHub page. First we have to require it.</p>
+<pre><code class="language-lua">function love.load()
+    tick = require "tick"
+end</code></pre>
+<p>Notice how <code>require</code> doesn't have parantheses (). This is because when you only pass 1 argument, you don't have to use them. Now I recommend you still do use them for any other function, but with <code>require</code> it's common to leave them out. But in the end, it doesn't even matter.</p>
+<p>Next we have to put tick.update(dt) in our updater.</p>
+<pre><code class="language-lua">function love.update(dt)
+    tick.update(dt)
+end</code></pre>
+<p>And now we're ready to start using the library. Let's make it so that a rectangle will be drawn after 2 seconds.</p>
+<pre><code class="language-lua">function love.load()
+    tick = require "tick"
+
+    --Create a boolean
+    drawRectangle = false
+
+    --The first argument is a function
+    --The second argument is the time it takes to call the function
+    tick.delay(function () drawRectangle = true end ,   2)
+end
+
+function love.draw()
+    --if drawRectangle is true then draw a rectangle
+    if drawRectangle then
+        love.graphics.rectangle("fill", 100, 100, 300, 200)
+    end
+end
+</code></pre>
+<p>Did we just pass a function as an argument? Sure, why not? A function is a type of variable after all. As you can see, with this library we can put a delay on things. And like that there are tons of libraries with all kind of functionality.</p>
+<p>Don't feel guilty for using a library. Why reinvent the wheel? That is, unless you are interested in learning it. I personally use about 10 libraries in my projects. They provide functionality that I don't understand how to make myself, and I'm simply not interested in learning it.</p>
+<p>Libraries aren't magic. It's all code that you and I could've written as well. We'll create a library in the future to get a better understanding about them.</p>
+<hr />
+<h2>Standard libraries</h2>
+<p>Lua has built-in libraries. These are called <em>Standard Libraries</em>. They are the functions that are build into Lua. <code>print</code>, for example, is part of the standard library. And so is <code>table.insert</code> and <code>table.remove</code>.</p>
+<p>One important standard library we haven't looked at yet is the <em>math library</em>. It provides math functions, which can be very useful when making a game.</p>
+<p>For example, <code>math.random</code> gives us a random number. Let's use it to place a rectangle on a random position whenever you press the spacebar.</p>
+<pre><code class="language-lua">function love.load()
+    x = 30
+    y = 50
+end
+
+function love.draw()
+    love.graphics.rectangle("line", x, y, 100, 100)
+end
+
+function love.keypressed(key)
+    --If space is pressed then..
+    if key == "space" then
+        --x and y become a random number between 100 and 500
+        x = math.random(100, 500)
+        y = math.random(100, 500)
+    end
+end</code></pre>
+<p>Now that we understand what libraries are, we can start using a class library.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>Libraries are code that gives us functionality. Anyone can make a library. Lua also has build-in libraries which we call the Standard Library.</p></div><div class="nav"><ul><li><a href="9.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="11.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_10 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

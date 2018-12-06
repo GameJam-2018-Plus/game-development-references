@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>love.keyreleased - LOVE</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<link href="main.css" rel="stylesheet">
+</link></meta></meta></head>
+<body>
+<h1 class="firstHeading" id="firstHeading" lang="en">love.keyreleased</h1><div id="bodyContent">
+<!-- <div id="siteSub">From LOVE</div> -->
+<!-- <div id="contentSub"></div> -->
+<!-- <div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div> -->
+<!-- start content -->
+<div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p>Callback function triggered when a keyboard key is released.
+</p>
+<h2><span class="mw-headline" id="Function">Function</span></h2>
+<table bgcolor="#d0d0ff" class="new-section" data-newin="[[0.10.0]]" style="margin-top: 1em; padding: 3px; border-radius:5px; -moz-border-radius:5px;">
+<tr>
+<td><i> <b>Available since LÖVE 0.10.0</b> </i>
+</td></tr>
+<tr>
+<td> <small>This variant is not supported in earlier versions.</small>
+</td></tr></table>
+<h3><span class="mw-headline" id="Synopsis">Synopsis</span></h3>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="lua source-lua"><pre class="de1">love<span class="sy0">.</span>keyreleased<span class="br0">(</span> key<span class="sy0">,</span> scancode <span class="br0">)</span></pre></div></div>
+<h3><span class="mw-headline" id="Arguments">Arguments</span></h3>
+<dl><dt><code><a href="keyconstant.html" title="KeyConstant">KeyConstant</a> key</code></dt>
+<dd> Character of the released key.</dd>
+<dt><code><a href="scancode.html" title="Scancode">Scancode</a> scancode</code></dt>
+<dd> The scancode representing the released key.</dd></dl>
+<h3><span class="mw-headline" id="Returns">Returns</span></h3>
+<p>Nothing.
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p><a href="scancode.html" title="Scancode">Scancodes</a> are keyboard layout-independent, so the scancode "w" will be used if the key in the same place as the "w" key on an American keyboard is pressed, no matter what the key is labelled or what the user's operating system settings are.
+</p>
+<h2><span class="mw-headline" id="Function_2">Function</span></h2>
+<h3><span class="mw-headline" id="Synopsis_2">Synopsis</span></h3>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="lua source-lua"><pre class="de1">love<span class="sy0">.</span>keyreleased<span class="br0">(</span> key <span class="br0">)</span></pre></div></div>
+<h3><span class="mw-headline" id="Arguments_2">Arguments</span></h3>
+<dl><dt><code><a href="keyconstant.html" title="KeyConstant">KeyConstant</a> key</code></dt>
+<dd> Character of the released key.</dd></dl>
+<h3><span class="mw-headline" id="Returns_2">Returns</span></h3>
+<p>Nothing.
+</p>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<p>Exit the game when the player releases the Escape key, using <a href="love-event-quit.html" title="love.event.quit">love.event.quit</a>. 
+</p>
+<div class="mw-geshi mw-code mw-content-ltr" dir="ltr"><div class="lua source-lua"><pre class="de1"><span class="kw1">function</span> love<span class="sy0">.</span>keyreleased<span class="br0">(</span>key<span class="br0">)</span>
+   <span class="kw1">if</span> key <span class="sy0">==</span> <span class="st0">"escape"</span> <span class="kw1">then</span>
+      love<span class="sy0">.</span>event<span class="sy0">.</span>quit<span class="br0">(</span><span class="br0">)</span>
+   <span class="kw1">end</span>
+<span class="kw1">end</span></pre></div></div>
+<h2><span class="mw-headline" id="See_Also">See Also</span></h2>
+<ul><li> <a href="love.html" title="love">love</a></li>
+<li> <a href="love-keypressed.html" title="love.keypressed">love.keypressed</a> </li>
+<li> <a href="love-keyboard-isdown.html" title="love.keyboard.isDown">love.keyboard.isDown</a></li></ul>
+<p><br/>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.080 seconds
+Real time usage: 0.088 seconds
+Preprocessor visited node count: 386/1000000
+Preprocessor generated node count: 1147/1000000
+Post‐expand include size: 4164/2097152 bytes
+Template argument size: 1676/2097152 bytes
+Highest expansion depth: 5/40
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key love2d_wiki:pcache:idhash:405-0!*!0!!*!*!* and timestamp 20180404190932 and revision id 19187
+ -->
+</div>
+<!-- end content -->
+<div class="visualClear"></div>
+</div>
+</body>
+</html>

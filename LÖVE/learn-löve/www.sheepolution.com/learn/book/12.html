@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="11.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="13.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 12 - Images</h1>
+<p>Creating and using images is a very easy task in LÖVE. First we need an image. I'm going to use this image:</p>
+<p><img src="../../images/book/12/sheep.png" alt="" target="_blank" /></p>
+<p>Of course, you can use any image you like, as long as it's of the type <code>.png</code>. Make sure the image is in the same directory as your <code>main.lua</code>.</p>
+<p>First we need to load the image, and store it in a variable. For this we will use <code>love.graphics.newImage</code>. Pass the name of the image as a string as first argument. So if you have a </p>
+<pre><code class="language-lua">function love.load()
+    myImage = love.graphics.newImage("sheep.png")
+end</code></pre>
+<p>You can also put your image in a subdirectory, but in that case make sure to include the whole path.</p>
+<pre><code class="language-lua">myImage = love.graphics.newImage("path/to/sheep.png")</code></pre>
+<p>Now our image is stored inside <code>myImage</code>. We can use <code>love.graphics.draw</code> to draw our image.</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.draw(myImage, 100, 100)
+end</code></pre>
+<p>And that is how you draw an image.</p>
+<hr />
+<h2>.draw() arguments</h2>
+<p>Let's take a look at the other arguments of <code>love.graphics.draw()</code>. All arguments besides the image are optional.</p>
+<p><strong>r</strong></p>
+<p>The <strong>r</strong>otation (or angle). All angles in LÖVE are radians. I'll explain more about radians in another chapter.</p>
+<p><strong>sx</strong> and <strong>sy</strong></p>
+<p>The <strong>x</strong>-<strong>s</strong>cale and <strong>y</strong>-<strong>s</strong>cale. If you want to make your image twice as big you do</p>
+<p><code>love.graphics.draw(myImage, 100, 100, 0, 2, 2)</code></p>
+<p>You can also use this to mirror an image with</p>
+<p><code>love.graphics.draw(myImage, 100, 100, 0, -1, 1)</code></p>
+<p><strong>ox</strong> and <strong>oy</strong></p>
+<p>The <strong>x</strong>-<strong>o</strong>rigin and <strong>y</strong>-<strong>o</strong>rigin of the image.</p>
+<p>By default, all the scaling and rotating is based on the top-left of the image.</p>
+<p><img src="../../images/book/12/origin1.png" alt="" target="_blank" /></p>
+<p>This is based on the <em>origin</em> of the image. If we want to scale the image from the center, we'll have to put the origin in the center of the image.</p>
+<p><code>love.graphics.draw(myImage, 100, 100, 0, 2, 2, 39, 50)</code></p>
+<p><img src="../../images/book/12/origin2.png" alt="" target="_blank" /></p>
+<p><strong>kx</strong> and <strong>ky</strong></p>
+<p>These are for shearing (which doesn't have a <strong>k</strong> at all so I'm not sure what to make of it).</p>
+<p>With it you can skew images.</p>
+<p><img src="../../images/book/12/shear.png" alt="" target="_blank" /></p>
+<p><code>love.graphics.print</code>, which we used before to draw text, has these same arguments.</p>
+<p>x, y, r, sx, sy, ox, oy, kx, ky </p>
+<p>Again, all these arguments can be left out. We call these <em>optional arguments</em>.</p>
+<hr />
+<h2>Image object</h2>
+<p>The image that <code>love.graphics.newImage</code> returns, is actually an object. An <a target="_blank" href="https://love2d.org/wiki/Image">Image</a> Object. It has functions that we can use to edit our image, or get data about it.</p>
+<p>For example, we can use <code>:getWidth()</code> and <code>:getHeight()</code> to get the width and height of the image. We can use this to put the origin in the center of our image.</p>
+<pre><code class="language-lua">function love.load()
+    myImage = love.graphics.newImage("sheep.png")
+    width = myImage:getWidth()
+    height = myImage:getHeight()
+end
+
+function love.draw()
+    love.graphics.draw("sheep.png", 100, 100, 0, 2, 2, width/2, height/2)
+end</code></pre>
+<hr />
+<h2>TL;DR</h2>
+<p>We load an image with <code>myImage = love.graphics.newImage("path/to/image.png")</code>, which returns an Image Object that we can store in a variable. We can pass this variable to <code>love.graphics.draw(myImage)</code> to draw the image. This function has optional arguments for the position, angle and scale of the image. An Image Object has functions that you can use to edit the image, or get data about it.</p></div><div class="nav"><ul><li><a href="11.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="13.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_12 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

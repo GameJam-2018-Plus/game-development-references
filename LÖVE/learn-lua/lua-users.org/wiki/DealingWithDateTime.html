@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>lua-users wiki: Dealing With Date Time</TITLE>
+<LINK TYPE="text/css" REL="stylesheet" HREF="../styles/main.css">
+</HEAD>
+<BODY ><table width="100%" border="0"> <tr><td align=left width="100%"><h1><a href="http://lua-users.org/cgi-bin/wiki.pl?action=search&amp;string=DealingWithDateTime&amp;body=1" title="List pages referring to DealingWithDateTime">Dealing With Date Time</a></h1></td><td align=right>
+    <table cellpadding="0" cellspacing="0" border="0" width="1%">
+      <tbody>
+        <tr>
+            <td><a href="http://lua-users.org/">
+            <img src="../images/nav-logo.png" alt="lua-users home" width="177" height="40" border="0"></a></td>
+        </tr>
+        <tr>
+            <td>
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tbody>
+                <tr>
+                    <td><img src="../images/nav-elbow.png" alt="" width="48" height="40"></td>
+                    <td nowrap valign="middle" width="100%">
+                        <a href="index.html" class="nav">wiki</a></td>
+                </tr>
+                </tbody>
+            </table>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+<form method="post" action="FindPage.html" enctype="application/x-www-form-urlencoded" style="display:inline; margin:0;">
+<input type="hidden" name="action" value="search"  /><input type="text" name="string"  size="20" style="" id="search_query1" /><input type="hidden" name="title" value="1"  /><input type="submit" name=".submit" value="Search" /><input type="hidden" name="body" value="on"  /></form></td></tr> </table>
+<br clear=all>
+You can use <code>os.time()</code> to add or substract any number of any time unit (e.g. 10000 minutes or -3 months) without converting it to seconds. What is even better, that it deals with daylight savings too.<p>
+This feature of <code>os.date()</code> and <code>os.time()</code> is not documented on www.lua.org <a href="https://www.lua.org">[1]</a>, resulting a large amount of questions on Stackoverflow<a href="https://stackoverflow.com/search?q=%5Blua%5D+add+date">[2]</a>.<p>
+<DL>
+<dt><dd><pre class="code">
+<span class="comment">-- no surprise here:</span>
+<span class="library">os.date</span>(<span class="string">"%c"</span>, <span class="library">os.time</span>{year = 2017, month = 01, day = 01, hour = 0, min = 0, sec = 0})
+&gt;&gt; <span class="string">"Sun Jan  1 00:00:00 2017"</span>
+
+<span class="comment">-- and the undocumented feature:</span>
+<span class="library">os.date</span>(<span class="string">"%c"</span>, <span class="library">os.time</span>{year = 2017, month = 01, day = 01, hour = 0, min = 20000, sec = 0})
+&gt;&gt; <span class="string">"Sat Jan 14 21:20:00 2017"</span>
+
+<span class="comment">-- also works with negative numbers:</span>
+<span class="library">os.date</span>(<span class="string">"%c"</span>, <span class="library">os.time</span>{year = 2017, month = 01, day = -20, hour = 0, min = 0, sec = 0})
+&gt;&gt; <span class="string">"Sun Dec 11 00:00:00 2016"</span>
+
+</pre>
+</DL>
+<hr>
+<a href="RecentChanges.html" >RecentChanges</a> &middot; <a href="http://lua-users.org/cgi-bin/wiki.pl?action=editprefs" >preferences</a><br>
+<a href="http://lua-users.org/cgi-bin/wiki.pl?action=edit&amp;id=DealingWithDateTime" >edit</a> &middot; <a href="http://lua-users.org/cgi-bin/wiki.pl?action=history&amp;id=DealingWithDateTime" >history</a><br>Last edited July 11, 2017 11:33 am GMT <a href="http://lua-users.org/cgi-bin/wiki.pl?action=browse&amp;diff=1&amp;id=DealingWithDateTime" >(diff)</a>
+</body>
+</html>

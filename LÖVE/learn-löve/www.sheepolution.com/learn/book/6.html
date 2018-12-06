@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="5.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="7.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 6 - If-statements</h1>
+<hr />
+<p><em>We use the code of the previous chapter</em></p>
+<hr />
+<p>With if-statements, we can allow pieces of code to only be executed when a condition is met.</p>
+<p>You create an if-statement like this:</p>
+<pre><code class="language-lua">if condition then
+    -- code
+end</code></pre>
+<p>A condition, or statement, is something that's either true or false.</p>
+<p>For example: <code>5 &gt; 9</code></p>
+<p>The <code>&gt;</code> means, higher than. So the statement is that 5 is higher than 9, which is false.</p>
+<p>Put an if-statement around the code of x increasing.</p>
+<pre><code class="language-lua">function love.update(dt)
+    if 5 &gt; 9 then
+        x = x + 100 * dt
+    end
+end</code></pre>
+<p>When you run the game you'll notice that our rectangle isn't moving. This is because the statement is false. If we were to change the statement to <code>5 &lt; 9</code> (5 is lower than 9), then the statement is true, and the code inside the if-statement will execute.</p>
+<p>With this, we can for example make <code>x</code> go up to 700, and then make it stop moving, with <code>x &lt; 700</code>.</p>
+<pre><code class="language-lua">function love.update(dt)
+    if x &lt; 700 then
+        x = x + 100 * dt
+    end
+end</code></pre>
+<p>If we want to check if a value is equal to another value, we need to use 2 equal-signs (==).</p>
+<p>For example: <code>4 == 7</code></p>
+<p>1 equal-sign is for assigning, 2 equal-signs is for comparing.</p>
+<pre><code class="language-lua">x = 10 --Assign 10 to x
+x == 10 --Compare 10 to x</code></pre>
+<p>We can also use <code>&gt;=</code> and <code>&lt;=</code> to check if values are higher and equal or lower and equal to each other.</p>
+<pre><code class="language-lua">10 &lt;= 10 --true, 10 equals to 10
+15 &gt;= 4 --true, 15 is higher than 4</code></pre>
+<h2>Boolean</h2>
+<p>A variable can also be <code>true</code> or <code>false</code>. This type of variable is what we call a boolean.</p>
+<p>Let's make a new variable called <code>move</code>, with the value <code>true</code>, and check if <code>move</code> is <code>true</code> in our if-statement.</p>
+<pre><code class="language-lua">function love.load()
+    x = 100
+    move = true
+end
+
+function love.update(dt)
+    --Remember, 2 equal signs!
+    if move == true then
+        x = x + 100 * dt
+    end
+end</code></pre>
+<p><code>move</code> is <code>true</code>, so our rectangle moves. But <code>move == true</code> is actually redundant. We're checking if it's true that the value of <code>move</code> is <code>true</code>. Simply using <code>move</code> as a condition is good enough.</p>
+<pre><code class="language-lua">if move then
+    x = x + 100 * dt
+end</code></pre>
+<p>If we want to check if <code>move</code> is <code>false</code>, we can put a <code>not</code> in front of it.</p>
+<pre><code class="language-lua">if not move then
+    x = x + 100 * dt
+end</code></pre>
+<p>If we want to check if a number is NOT equal to another number, we use a tilde (~).</p>
+<pre><code class="language-lua">if 4 ~= 5 then
+    x = x + 100 * dt
+end</code></pre>
+<p>We can also assign <code>true</code> or <code>false</code> to a variable with a statement.</p>
+<p>For example: <code>move = 6 &gt; 3</code>.</p>
+<p>If we check if move is true, and then change move to false inside the if-statement, it's not as if we jump out of the if-statement. All the code below will still be executed.</p>
+<pre><code class="language-lua">if move then
+    move = false
+    print("This will still be executed!")
+    x = x + 100 * dt
+end</code></pre>
+<h2>Arrow keys</h2>
+<p>Let's make the rectangle move based on if we hold down the right arrowkey. For this we use the function <code>love.keyboard.isDown</code> <a target="_blank" href="https://www.love2d.org/wiki/love.keyboard.isDown">(wiki)</a>.</p>
+<p>Notice how the D of Down is uppercase. This is type of casing is what we call camelCasing. We start the first word in lowercase, and then every following word's first character we type in uppercase.</p>
+<p>We pass the string &quot;right&quot; as first argument to check if the right arrowkey is down.</p>
+<pre><code class="language-lua">if love.keyboard.isDown("right") then
+    x = x + 100 * dt
+end</code></pre>
+<p>So now only when we hold down the right arrowkey does our rectangle move.</p>
+<p>We can also use <code>else</code> to tell our game what to do when the condition is <code>false</code>. Let's make our rectangle move to the left, when we don't press right.</p>
+<pre><code class="language-lua">if love.keyboard.isDown("right") then
+    x = x + 100 * dt
+else
+    x = x - 100 * dt --We decrease the value of x
+end</code></pre>
+<p>We can also check if another statement is true, after the first is false, with <code>elseif</code>. Let's make it so that after checking if the right arrowkey is down, and it's not, we'll check if the left arrowkey is down.</p>
+<pre><code class="language-lua">if love.keyboard.isDown("right") then
+    x = x + 100 * dt
+elseif love.keyboard.isDown("left") then
+    x = x - 100 * dt
+end</code></pre>
+<p>Try to make the rectangle move up and down as well.</p>
+<h2>and &amp; or</h2>
+<p>With <code>and</code> we can check if multiple statements are true.</p>
+<pre><code class="language-lua">if 5 &lt; 9 and 14 &gt; 7 then
+    print("Both statements are true")
+end</code></pre>
+<p>With <code>or</code>, the if-statement will execute if any of the statements is true.</p>
+<pre><code class="language-lua">if 20 &lt; 9 or 14 &gt; 7 or 5 == 10 then
+    print("One of these statements is true")
+end</code></pre>
+<hr />
+<h2>One more thing</h2>
+<p>To be more precice, if-statements check if the statement is NOT <code>false</code> or <code>nil</code>.</p>
+<pre><code class="language-lua">if true then print(1) end -- Not false or nil, executes.
+if false then print(2) end --False, doesn't execute.
+if nil then print(3) end --Nil, doesn't execute
+if 5 then print(4) end --Not false or nil, executes
+if "hello" then print(5) end --Not false or nil, executes
+--Output: 1, 4, 5</code></pre>
+<hr />
+<h2>TL;DR</h2>
+<p>With if-statements, we can allow pieces of code to only be executed when a condition is met. We can check if a number is high, lower or equal to another number/value. A variable can be true or false. This type of variable is what we call a <code>boolean</code>. We can use <code>else</code> to tell our game what to execute when the statement was false, or <code>elseif</code> to do another check.</p></div><div class="nav"><ul><li><a href="5.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="7.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_6 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

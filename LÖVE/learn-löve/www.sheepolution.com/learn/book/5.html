@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="4.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="6.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 5 - Moving a rectangle</h1>
+<p>Now we can start with what I like to call &quot;The fun part&quot;. We're going to make stuff move!</p>
+<p>Let's start with the 3 main callbacks.</p>
+<pre><code class="language-lua">function love.load()
+
+end
+
+function love.update()
+
+end
+
+function love.draw()
+
+end</code></pre>
+<p>Next, we draw a rectangle.</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.rectangle("line", 100, 50, 200, 150)
+end</code></pre>
+<p>The second and third argument of this function are the x and y position.</p>
+<p>x means &quot;horizontal position on the screen&quot;. 0 is the left of the screen.</p>
+<p>y means &quot;vertical position on the screen&quot;. 0 is the top of the screen.</p>
+<p><img src="../../images/book/5/coordinates.png" alt="" target="_blank" /></p>
+<p>Now we want to make the rectangle move. It's time to start thinking like a programmer. What exactly needs to happen in order for the rectangle to move to the right? The x-position needs to go up. 100, 101, 102, 103, 104, etc. But we can't change 100 to 101. 100 is simply 100. We need to have something that can change in any number we want it to be. That's right, a <strong>variable</strong>!</p>
+<p>In love.load, create a new variable called <code>x</code>, and replace the 100 in <code>love.graphics.rectangle</code> with <code>x</code>.</p>
+<pre><code class="language-lua">function love.load()
+    x = 100 
+end
+
+function love.draw()
+    love.graphics.rectangle("line", x, 50, 200, 150)
+end</code></pre>
+<p>So now the x-position of our rectangle is the value of <code>x</code>.</p>
+<p>Note that the variable name <code>x</code> is just a name. We could've named it <code>icecream</code> for that matter. Functions don't care about variable names, it only cares about its value.</p>
+<p>Now we want to make the rectangle move. We do this in love.update. Every update we want to increase <code>x</code> by 5. In other words, <code>x</code> needs to be value of <code>x</code> + 5. And that's exactly how we write.</p>
+<pre><code class="language-lua">function love.update()
+    x = x + 5
+end</code></pre>
+<p>So now when <code>x</code> equals 100, it will change <code>x</code> into 100 + 5. Then next update <code>x</code> is 105 and <code>x</code> will change into 105 + 5, etc.</p>
+<p>Run the game. The rectangle should now be moving.</p>
+<hr />
+<h2>Delta time</h2>
+<p>We got a moving rectangle, but there's one small problem. If you were to run the game on a different computer, the rectangle might move with a different speed. This is because not all computers update at the same rate, and that can cause problems.</p>
+<p>For example, let's say that Computer A runs with 100 fps (frames per second), and Computer B runs with 200 fps.</p>
+<p>100 x 5 = 500</p>
+<p>200 x 5 = 1000</p>
+<p>So in 1 second, x has increased with 500 on computer A, while on computer B x has increased with 1000.</p>
+<p>Luckily, there's a solution for this: delta time.</p>
+<p>When LÖVE calls love.update, it passes an argument. Add the parameter dt (short for delta time) in the love.update, and let's print it.</p>
+<pre><code class="language-lua">function love.update(dt)
+    print(dt)
+    x = x + 5
+end</code></pre>
+<p>Delta time is the time that has passed between the previous and the current update. So on computer A, wich runs with 100 fps, delta time on average would be 1 / 100, which is 0.01.</p>
+<p>On computer B, delta time would be 1 / 200, which is 0.005.</p>
+<p>So in 1 second, computer A updates 100 times, and increases <code>x</code> by 5 x 0.01, and computer B updates 200 times and increases <code>x</code> by 5 x 0.005.</p>
+<p>100 x 5 * 0.01 = 5</p>
+<p>200 x 5 * 0.005 = 5</p>
+<p>By using delta time our rectangle will move with the same speed on all computers.</p>
+<pre><code class="language-lua">function love.update(dt)
+    x = x + 5 * dt</code></pre>
+<p>Now our rectangle moves 5 pixels per second, on all computers. Change 5 to 100 to make it go faster.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>We use a variable that we increase on each update to make the rectangle move. When increasing we multiply the added value by delta time. Delta time is the time between the previous and current update. Using delta time makes sure that our rectangle moves with the same speed on all computers.</p></div><div class="nav"><ul><li><a href="4.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="6.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_5 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

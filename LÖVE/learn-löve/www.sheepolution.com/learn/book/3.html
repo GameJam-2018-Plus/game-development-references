@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="2.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="4.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 3 - Functions</h1>
+<p>With functions, we can store pieces of code. This allows us to execute this code whenever we want.</p>
+<p>There are 2 ways to create a function:</p>
+<pre><code class="language-lua">example = function ()
+    print("Hello World!")
+end</code></pre>
+<p>and the more common way:</p>
+<pre><code class="language-lua">function example()
+    print("Hello World!")
+end</code></pre>
+<p>You start by writing the keyword <code>function</code>, followed by the name of the function. A function is a type of variable, so the same rules apply as when you name a variable. This function's name is <code>example</code>. After the name we put parantheses <code>()</code>. Now we can start typing the code we want to put inside our function. In this case, we put in <code>print("Hello World!")</code> When you're done you close the function with an <code>end</code>.</p>
+<p>Note that when you run the code, you'll see no &quot;Hello World!&quot; in your console, this is because we still have to execute the function. We execute a function like this:</p>
+<pre><code class="language-lua">example()
+--Output: "Hello World!"</code></pre>
+<p>You simply type the function's name, followed by parantheses. This is what we call a <em>function-call</em>.</p>
+<hr />
+<h2>Parameters</h2>
+<p>Take a look at this code:</p>
+<pre><code class="language-lua">function example(num)
+    print("I like the number " .. num)
+end
+
+example(15)
+example(2)
+example(44)
+example(100)
+print(num)
+--Output:
+--"I like the number 15"
+--"I like the number 2"
+--"I like the number 44"
+--"I like the number 100"
+--nil</code></pre>
+<p>Inside the parantheses of the function we can put what we call <em>parameters</em>. Parameters are temporary variables that only exist inside the function. In this case we place the parameter <code>num</code>. And now we can use <code>num</code> like any other variable.</p>
+<p>We execute our function multiple times, each time with a different number. And thus each time we print the same sentence, but with a different number. The number we put inside the parantheses is what we call an argument. So in the first function-call, we <em>pass</em> the <em>argument</em> 15 to the <em>parameter</em> <code>num</code>.</p>
+<p>At the end of our code we print <code>num</code>, outside of our function. This gives us <code>nil</code>. This means that num has no value. It's not a number, or string, or function. It's nothing. Because like I said before, parameters are variables that are only available inside the function.</p>
+<hr />
+<h2>Return</h2>
+<p>Functions can return a value, which we can store inside a variable, for example. You can return a value by using the <code>return</code> keyword.</p>
+<pre><code class="language-lua">
+function giveMeFive()
+    return 5
+end
+
+a = giveMeFive()
+print(a)
+--Output: 5</code></pre>
+<p><code>a</code> becomes the value that giveMeFive <em>returns</em>.</p>
+<p>Another example:</p>
+<pre><code class="language-lua">--Multiple parameters and arguments are separated by a comma
+function sum(a, b)
+    return a + b
+end
+
+print(sum(200, 95))
+--Output:
+--295</code></pre>
+<p>Our function <code>sum</code> <em>returns</em> the sum of <code>a</code> and <code>b</code>. We don't necessarily need to put the value our function returns in a variable first. We can directly print the value.</p>
+<h2>Why functions?</h2>
+<p>By using functions we don't have to repeat certain code over and over again. We can simply place a function-call instead. This is great, because if you were to change the function in the future, you don't have to change it on all those places you put your function. Always try to avoid repeating code.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>Functions can store code that we can execute at any time. We call a function by writing its name followed by parantheses. We can put values inside these parantheses. These values are passed to the function's parameters, which are temporary variables that only exist within the function. Functions can also return a value. Functions remove repetition and that is a good thing.</p></div><div class="nav"><ul><li><a href="2.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="4.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_3 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

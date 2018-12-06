@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Sheepolution</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../index.css"/>
+	<link rel="icon" href="../../images/favicon.png" type="image/png">
+
+	<!--Code styling -->
+	<link rel="stylesheet" href="../../libs/styles/github.css">
+	<script src="../../libs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+	<div id="top">
+		<a href="../../games.html"><img src="../../images/logo.png"></a>
+	</div>
+	<div id="menu">
+		<a href="../../games.html">GAMES</a>
+		<a href="../../learn.html">LEARN</a>
+		<a href="http://sheepolution.com/blog">BLOG</a>
+		<a href="http://sheepolution.com/press">PRESS</a>
+	</div>
+	 <div class="book">
+ <div class="nav"><ul><li><a href="3.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="5.html">Next</a></li></ul></div><div class="chapter"><h1>Chapter 4 - LÖVE</h1>
+<h2>What is LÖVE?</h2>
+<p>LÖVE is what we call a <em>framework</em>. Simply said: It's a tool that makes programming things easier.</p>
+<p>LÖVE is made with <em>C++</em> and <em>OpenGL</em>, which are both considered to be very difficult. The source code of LÖVE is very complex. But all this complex code makes creating a game a lot easier for us.</p>
+<p>For example, with <code>love.graphics.ellipse()</code>, we can draw an ellipse. But this is the source code behind it:</p>
+<pre><code class="language-cpp">void Graphics::ellipse(DrawMode mode, float x, float y, float a, float b, int points)
+{
+    float two_pi = static_cast&lt;float&gt;(LOVE_M_PI * 2);
+    if (points &lt;= 0) points = 1;
+    float angle_shift = (two_pi / points);
+    float phi = .0f;
+
+    float *coords = new float[2 * (points + 1)];
+    for (int i = 0; i &lt; points; ++i, phi += angle_shift)
+    {
+        coords[2*i+0] = x + a * cosf(phi);
+        coords[2*i+1] = y + b * sinf(phi);
+    }
+
+    coords[2*points+0] = coords[0];
+    coords[2*points+1] = coords[1];
+
+    polygon(mode, coords, (points + 1) * 2);
+
+    delete[] coords;
+}</code></pre>
+<p>You might not understand this code above at all, and that's exactly why we use LÖVE. It takes care of the hard parts of gameprogramming, and leaves the fun part for us.</p>
+<hr />
+<h2>Lua</h2>
+<p>Lua is the programming language that LÖVE uses. Lua is a programming language on its own, and is not made by or for LÖVE. The creators of LÖVE simply chose Lua as the language for their framework.</p>
+<p>So what part of what we code is LÖVE, and what is Lua? Very simple: Everything starting with <code>love.</code> is part of the LÖVE framework. Everything else is Lua.</p>
+<p>These are functions part of the LÖVE framework:</p>
+<pre><code class="language-lua">love.graphics.circle("fill", 10, 10, 100, 25)
+love.graphics.rectangle("line", 200, 30, 120, 100)</code></pre>
+<p>And this is simply Lua:</p>
+<pre><code class="language-lua">function test(a, b)
+    return a + b
+end
+print(test(10, 20))
+--output: 30</code></pre>
+<p>If it's still confusing to you, that's okay. It's not the most important thing right now.</p>
+<hr />
+<h2>How does LÖVE work?</h2>
+<hr />
+<p><em>You're required to have LÖVE installed at this point. Go back to <a target="_blank" href="1.html">Chapter 1</a> if you haven't already.</em></p>
+<hr />
+<p>LÖVE calls 3 functions. First it calls love.load(). In here we create our variables.</p>
+<p>After that it calls love.update() and love.draw(), repeatedly in that order.</p>
+<p>So: love.load -&gt; love.update -&gt; love.draw -&gt; love.update -&gt; love.draw -&gt; love.update, etc.</p>
+<p>Behind the scenes, LÖVE calls these functions, and we to create them, and fill them with code. This is what we call a <em>callback</em>.</p>
+<p>LÖVE is made out of <em>modules</em>, love.graphics, love.audio, love.filesystem. There are about 15 modules, and each module focusses on 1 thing. Everything that you draw is done in love.graphics. And anything with sound is done in love.audio.</p>
+<p>For now, let's focus on love.graphics.</p>
+<p>LÖVE has a <a target="_blank" href="https://www.love2d.org/wiki/Main_Page">wiki</a> with an explanation for every function. Let's say we want to draw a rectangle. On the wiki we go to  <a target="_blank" href="https://www.love2d.org/wiki/love.graphics"><code>love.graphics</code></a>, and on the page we search for &quot;rectangle&quot;. There we find <a target="_blank" href="https://www.love2d.org/wiki/love.graphics.rectangle"><code>love.graphics.rectangle</code></a>.</p>
+<p><a target="_blank" href="https://www.love2d.org/wiki/love.graphics.rectangle"><img src="../../images/book/4/rectangle.png" alt="" target="_blank" title="love2d.org/wiki/love.graphics.rectangle" /></a></p>
+<p>This page tells us what this function does and what arguments it needs. The first argument is mode, and needs to be of the type DrawMode. We can click on <a target="_blank" href="https://www.love2d.org/wiki/DrawMode"><code>DrawMode</code></a> to get more info about this type.</p>
+<p><a target="_blank" href="https://www.love2d.org/wiki/DrawMode"><img src="../../images/book/4/drawmode.png" alt="" target="_blank" title="love2d.org/wiki/DrawMode" /></a></p>
+<p>DrawMode is a string that is either &quot;fill&quot; or &quot;line&quot;, and controls how shapes are drawn.</p>
+<p>All following arguments are numbers.</p>
+<p>So if we want to draw a filled rectangle, we can do the following:</p>
+<pre><code class="language-lua">function love.draw()
+    love.graphics.rectangle("fill", 100, 200, 50, 80)
+end</code></pre>
+<p>Now when you run the game, you'll see a filled rectangle.</p>
+<hr />
+<h2>TL;DR</h2>
+<p>LÖVE is a tool that makes it easier for us to make games. LÖVE uses a programming language called Lua. Everything starting with <code>love.</code> is part of the LÖVE framework. The wiki tells us everything we need to know about how to use LÖVE.</p></div><div class="nav"><ul><li><a href="3.html">Previous</a></li><li><a href="contents.html">Index</a></li><li><a href="5.html">Next</a></li></ul></div></div>
+	<div id="disqus_thread"></div>
+	<script>
+
+	/**
+	*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+	var disqus_config = function () {
+		this.page.identifier = book_page_4 // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = '//sheepolution.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 	<div id="footer">
+		<p>© 2016 Sheepolution </p>
+	</div>
+
+</body>
+</html>

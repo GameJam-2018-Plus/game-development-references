@@ -1,0 +1,25 @@
+h3 code {
+	font-family: inherit ;
+	font-size: inherit ;
+}
+
+pre, code {
+	font-size: 12pt ;
+}
+
+span.apii {
+	color: gray ;
+	float: right ;
+	font-family: inherit ;
+	font-style: normal ;
+	font-size: small ;
+}
+
+h2:before {
+	content: "" ;
+	padding-right: 0em ;
+}
+
+pre, code {white-space: pre-wrap !important; word-wrap: break-word !important}
+
+body {font-size:16px}
